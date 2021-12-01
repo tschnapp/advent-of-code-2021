@@ -6,41 +6,38 @@ using System.Text;
 
 namespace Main
 {
-    class Day01
+    class Day01 : Day
     {
-        public void Part01(string version, string expectedResult)
+        [TestCase("Test01", "7")]
+        [TestCase("Final", "1752")]
+        public override string Part01(string[] rawInput)
         {
-            var filename = this.GetType().Name + "_" + MethodBase.GetCurrentMethod().Name + "_" + version + ".txt";
-            var filepath = Globals.PATH + filename;
-            var data = System.IO.File.ReadAllText(filepath).Split(Environment.NewLine).Select(Int32.Parse).ToList();
-            var result = "";
+            var input = rawInput.Select(Int32.Parse).ToList();
 
 
-            var largerMeasurements = 0;
-            for (int i = 1; i < data.Count; i++)
-                if (data[i] > data[i - 1])
-                    largerMeasurements++;
+            var largerMeasurementsCount = 0;
+            for (int i = 1; i < input.Count; i++)
+                if (input[i] > input[i - 1])
+                    largerMeasurementsCount++;
 
 
-            result = largerMeasurements.ToString();
-            Console.WriteLine("File: " + filename + ", Result:" + result + ", Expected Result: " + expectedResult + " ..." + (result == expectedResult ? "PASSED" : "FAILED"));
+            return largerMeasurementsCount.ToString();
         }
 
-        public void Part02(string version, string expectedResult)
+        [TestCase("Test01", "5")]
+        [TestCase("Final", "1781")]
+        public override string Part02(string[] rawInput)
         {
-            var filename = this.GetType().Name + "_" + MethodBase.GetCurrentMethod().Name + "_" + version + ".txt";
-            var filepath = Globals.PATH + filename;
-            var data = System.IO.File.ReadAllText(filepath).Split(Environment.NewLine).Select(Int32.Parse).ToList();
-            var result = "";
+            var input = rawInput.Select(Int32.Parse).ToList();
 
 
-            var largerMeasurements = 0;
-            for (int i = 3; i < data.Count; i++)
-                if ((data[i] + data[i - 1] + data[i - 2]) > (data[i - 1] + data[i - 2] + data[i - 3]))
-                    largerMeasurements++;
+            var largerMeasurementsCount = 0;
+            for (int i = 3; i < input.Count; i++)
+                if (input.GetRange(i - 2, 3).Sum() > input.GetRange(i - 3, 3).Sum())
+                    largerMeasurementsCount++;
 
-            result = largerMeasurements.ToString();
-            Console.WriteLine("File: " + filename + ", Result: " + result + ", Expected Result: " + expectedResult + " ..." + (result == expectedResult ? "PASSED" : "FAILED"));
+
+            return largerMeasurementsCount.ToString();
         }
     }
 }

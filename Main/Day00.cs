@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Main
 {
-    class Day02 : Day
+    class Day00 : Day
     {
         [TestCase("Test01", "?")]
         [TestCase("Final", "?")]
         public override string Part01(string[] rawInput)
         {
-            return "?";
+            return "";
         }
 
         [TestCase("Test01", "?")]

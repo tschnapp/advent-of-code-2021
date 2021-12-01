@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Main
 {
@@ -8,32 +10,85 @@ namespace Main
         {
             var startTime = DateTime.Now;
 
+            var mostRecentDay = typeof(Program).Assembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(Day)))
+                .OrderByDescending(t => int.Parse(t.Name.Replace("Day", "")))
+                .First();
+                //.First(t => t.Name == "Day01");   // specify day
 
-            #region Previous Days
-            var day01 = new Day01();
-            day01.Part01("Test01", "7");
-            day01.Part01("Final", "1752");
+            var day = Activator.CreateInstance(mostRecentDay) as Day;
 
-            day01.Part02("Test01", "5");
-            day01.Part02("Final", "1781");
-            #endregion
+            mostRecentDay.GetMethods()
+                .Where(m => m.Name == "Part01")
+                .SelectMany(m => m.GetCustomAttributes(typeof(TestCaseAttribute), false))
+                .Cast<TestCaseAttribute>()
+                .ToList()
+                .ForEach(t => day.Part01(t.Version, t.ExpectedResult));
 
-            //var day02 = new Day01();
-            //day02.Part01("Test01", "7");
-            //day02.Part01("Final", "?");
-
-            //var day02 = new Day01();
-            //day02.Part02("Test01", "5");
-            //day02.Part02("Final", "?");
-
+            mostRecentDay.GetMethods()
+                .Where(m => m.Name == "Part02")
+                .SelectMany(m => m.GetCustomAttributes(typeof(TestCaseAttribute), false))
+                .Cast<TestCaseAttribute>()
+                .ToList()
+                .ForEach(t => day.Part02(t.Version, t.ExpectedResult));
 
             Console.WriteLine(Environment.NewLine + "Program run time: " + string.Format(@"{0:hh\:mm\:ss}", (DateTime.Now - startTime)));
             Console.ReadKey();
         }
     }
 
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    class TestCaseAttribute : Attribute
+    {
+        public string Version { get; }
+        public string ExpectedResult { get; }
+
+        public TestCaseAttribute (string version, string expectedResult)
+        {
+            Version = version;
+            ExpectedResult = expectedResult;
+        }
+    }
+
+    abstract class Day
+    {
+        public void Part01(string version, string expectedResult)
+        {
+            var (filename, rawInput) = this.GetInput(version);
+            var result = Part01(rawInput);
+            Globals.ReportResults(filename, result, expectedResult);
+        }
+
+        public abstract string Part01(string[] rawInput);
+
+        public void Part02(string version, string expectedResult)
+        {
+            var (filename, rawInput) = this.GetInput(version);
+            var result = Part02(rawInput);
+            Globals.ReportResults(filename, result, expectedResult);
+        }
+
+        public abstract string Part02(string[] rawInput);
+    }
+
     public static class Globals
     {
         public const string PATH = "./../../../data/";
+
+        public static void ReportResults(string filename, string result, string expectedResult)
+        {
+            Console.WriteLine("File: " + filename + ", Result: " + result + ", Expected Result: " + expectedResult + " ..." + (result == expectedResult ? "PASSED" : "FAILED"));
+        }
+
+        public static (string, string[]) GetInput<T>(this T self, string version, [CallerMemberName] string methodName = "")
+        {
+            var filename = self.GetType().Name + "_" + methodName + "_" + version + ".txt";
+            var filepath = Globals.PATH + filename;
+            var input = System.IO.File.ReadAllLines(filepath);
+
+            return (filename, input);
+        }
     }
+
+
 }
