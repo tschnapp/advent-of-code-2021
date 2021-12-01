@@ -32,7 +32,8 @@ namespace Main
                 .ToList()
                 .ForEach(t => day.Part02(t.Version, t.ExpectedResult));
 
-            Console.WriteLine(Environment.NewLine + "Program run time: " + string.Format(@"{0:hh\:mm\:ss}", (DateTime.Now - startTime)));
+            Console.WriteLine($"{System.Environment.NewLine}Program run time: {DateTime.Now.Subtract(startTime).ToString(@"hh\:mm\:ss")}");
+
             Console.ReadKey();
         }
     }
@@ -77,7 +78,7 @@ namespace Main
 
         public static void ReportResults(string filename, string result, string expectedResult)
         {
-            Console.WriteLine("File: " + filename + ", Result: " + result + ", Expected Result: " + expectedResult + " ..." + (result == expectedResult ? "PASSED" : "FAILED"));
+            Console.WriteLine($"File: {filename}, Result: {result}, Expected Result: {expectedResult} ...{(result == expectedResult ? "PASSED" : "FAILED")}");
         }
 
         public static (string, string[]) GetInput<T>(this T self, string version, [CallerMemberName] string methodName = "")
@@ -89,6 +90,4 @@ namespace Main
             return (filename, input);
         }
     }
-
-
 }

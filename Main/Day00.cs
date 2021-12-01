@@ -12,6 +12,8 @@ namespace Main
         [TestCase("Final", "?")]
         public override string Part01(string[] rawInput)
         {
+            var input = rawInput.Select(Int32.Parse).ToList();
+
             return "";
         }
 
@@ -19,6 +21,8 @@ namespace Main
         [TestCase("Final", "?")]
         public override string Part02(string[] rawInput)
         {
+            var input = rawInput.Select(Int32.Parse).ToList();
+
             return "";
         }
     }

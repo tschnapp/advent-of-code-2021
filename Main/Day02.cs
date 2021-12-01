@@ -12,13 +12,17 @@ namespace Main
         [TestCase("Final", "?")]
         public override string Part01(string[] rawInput)
         {
-            return "?";
+            var input = rawInput.Select(Int32.Parse).ToList();
+
+            return "";
         }
 
         [TestCase("Test01", "?")]
         [TestCase("Final", "?")]
         public override string Part02(string[] rawInput)
         {
+            var input = rawInput.Select(Int32.Parse).ToList();
+
             return "";
         }
     }
