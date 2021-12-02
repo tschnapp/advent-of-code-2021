@@ -13,13 +13,11 @@ namespace Main
         public override string Part01(string[] rawInput)
         {
             var input = rawInput.Select(Int32.Parse).ToList();
-
-
             var largerMeasurementsCount = 0;
+
             for (int i = 1; i < input.Count; i++)
                 if (input[i] > input[i - 1])
                     largerMeasurementsCount++;
-
 
             return largerMeasurementsCount.ToString();
         }
@@ -30,12 +28,10 @@ namespace Main
         {
             var input = rawInput.Select(Int32.Parse).ToList();
 
-
             var largerMeasurementsCount = 0;
             for (int i = 3; i < input.Count; i++)
                 if (input.GetRange(i - 2, 3).Sum() > input.GetRange(i - 3, 3).Sum())
                     largerMeasurementsCount++;
-
 
             return largerMeasurementsCount.ToString();
         }
