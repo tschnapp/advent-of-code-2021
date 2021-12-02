@@ -44,7 +44,7 @@ namespace Main
         public string Version { get; }
         public string ExpectedResult { get; }
 
-        public TestCaseAttribute (string version, string expectedResult)
+        public TestCaseAttribute(string version, string expectedResult)
         {
             Version = version;
             ExpectedResult = expectedResult;
