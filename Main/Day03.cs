@@ -48,11 +48,11 @@ namespace Main
                     if (input[i][c] == '0')
                         zeroBitCountForColumn++;
 
-                var itemsInInput = input.Count();
-                for (int b = itemsInInput - 1; b >= 0; b--)         // The for loop is reversed to allow removing items
+                var initialInputCount = input.Count();
+                for (int b = initialInputCount - 1; b >= 0; b--)    // The for loop is reversed to allow removing items
                 {
-                    if ((zeroBitCountForColumn > (itemsInInput / 2) && input[b][c] == '1') ||
-                        (zeroBitCountForColumn <= (itemsInInput / 2) && input[b][c] == '0'))
+                    if ((zeroBitCountForColumn > initialInputCount / 2 && input[b][c] == '1') ||
+                        (zeroBitCountForColumn <= initialInputCount / 2 && input[b][c] == '0'))
                     {
                         input.Remove(input[b]);                     // remove binary from the list when it doesn't match
 
@@ -77,11 +77,11 @@ namespace Main
                     if (input[i][c] == '0')
                         zeroBitCountForColumn++;
 
-                var itemsInInput = input.Count();
-                for (int b = itemsInInput - 1; b >= 0; b--)         // The for loop is reversed to allow removing items
+                var initialInputCount = input.Count();
+                for (int b = initialInputCount - 1; b >= 0; b--)    // The for loop is reversed to allow removing items
                 {
-                    if ((zeroBitCountForColumn > (itemsInInput / 2) && input[b][c] == '0') ||
-                        (zeroBitCountForColumn <= (itemsInInput / 2) && input[b][c] == '1'))
+                    if ((zeroBitCountForColumn > initialInputCount / 2 && input[b][c] == '0') ||
+                        (zeroBitCountForColumn <= initialInputCount / 2 && input[b][c] == '1'))
                     {
                         input.Remove(input[b]);                     // remove binary from the list when it doesn't match
 
