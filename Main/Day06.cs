@@ -38,13 +38,13 @@ namespace Main
             long totalFish = fishes.Count();
             long[] spawnDays = new long[300];
 
-            for (int f = 0; f < fishes.Count(); f++)    // Add fish to spawnDays
+            for (int f = 0; f < fishes.Count(); f++)    // Add initial fish to spawnDays schedule
                 spawnDays[fishes[f]]++;
 
-            for (int d = 0; d < 256; d++)
+            for (int d = 0; d < 256; d++) 
             {
-                spawnDays[d + 7] += spawnDays[d];       // Fish's offspring (reschedule)
-                spawnDays[d + 9] += spawnDays[d];       // Spawn's offspring
+                spawnDays[d + 7] += spawnDays[d];       // Reschedule existing fish on spawnDays
+                spawnDays[d + 9] += spawnDays[d];       // Schedule offspring on spawnDays
                 totalFish += spawnDays[d];
             }
 
