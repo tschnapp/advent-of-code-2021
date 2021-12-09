@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -75,6 +76,8 @@ namespace Main
     public static class Globals
     {
         public const string PATH = "./../../../data/";
+
+        public static List<List<bool>> hasBeenVisited = new List<List<bool>>();
 
         public static void ReportResults(string filename, string result, string expectedResult)
         {
