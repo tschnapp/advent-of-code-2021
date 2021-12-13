@@ -77,8 +77,6 @@ namespace Main
     {
         public const string PATH = "./../../../data/";
 
-        public static List<List<bool>> hasBeenVisited = new List<List<bool>>();
-
         public static void ReportResults(string filename, string result, string expectedResult)
         {
             Console.WriteLine($"File: {filename}, Result: {result}, Expected Result: {expectedResult} ...{(result == expectedResult ? "PASSED" : "FAILED")}");
@@ -92,5 +90,7 @@ namespace Main
 
             return (filename, input);
         }
+
+        public static List<List<bool>> hasBeenVisited = new List<List<bool>>();
     }
 }
