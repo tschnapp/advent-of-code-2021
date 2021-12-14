@@ -92,5 +92,6 @@ namespace Main
         }
 
         public static List<List<bool>> hasBeenVisited = new List<List<bool>>();
+        public static List<string> allCavePaths = new List<string>();
     }
 }

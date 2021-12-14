@@ -34,7 +34,7 @@ namespace Main
                     caves.Add(new Cave(splitInput[1], splitInput[0]));
                 else
                     if (!caves[caveIndex].Connections.Contains(splitInput[1]))
-                    caves[caveIndex].Connections.Add(splitInput[0]);
+                        caves[caveIndex].Connections.Add(splitInput[0]);
             }
 
             cavePaths = exploreCaves("start", caves, new List<string>());
@@ -88,12 +88,13 @@ namespace Main
         }
 
         [TestCase("Test01", "36")]
-        //[TestCase("Final", "103")]
+        [TestCase("Final", "103")]
         public override string Part02(string[] rawInput)
         {
             var inputData = rawInput.ToList();
             var caves = new List<Cave>();
             var cavePaths = 0;
+            var caveResults = new List<string>();
 
             foreach (string input in inputData)
             {
@@ -104,22 +105,34 @@ namespace Main
                     caves.Add(new Cave(splitInput[0], splitInput[1]));
                 else
                     if (!caves[caveIndex].Connections.Contains(splitInput[0]))
-                    caves[caveIndex].Connections.Add(splitInput[1]);
+                        caves[caveIndex].Connections.Add(splitInput[1]);
 
                 caveIndex = caves.FindIndex(c => c.Id == splitInput[1]);            // Build connections for the cave on the right side of the data
                 if (caveIndex == -1)
                     caves.Add(new Cave(splitInput[1], splitInput[0]));
                 else
                     if (!caves[caveIndex].Connections.Contains(splitInput[1]))
-                    caves[caveIndex].Connections.Add(splitInput[0]);
+                        caves[caveIndex].Connections.Add(splitInput[0]);
             }
 
-            cavePaths = exploreCaves2("start", caves, new List<string>());
+            var specialCave = "";
+            exploreCaves2("start", caves, new List<string>(), ref specialCave);
 
-            return cavePaths.ToString();
+            foreach (Cave cave in caves)
+            {
+                if (cave.Id[0] > 96 && cave.Id != "start" && cave.Id != "end")
+                {
+                    specialCave = cave.Id;
+                    exploreCaves2("start", caves, new List<string>(), ref specialCave);
+                }
+            }
+
+            caveResults = Globals.allCavePaths.Distinct().ToList();
+
+            return (caveResults.Count()).ToString();
         }
 
-        private int exploreCaves2(string caveId, List<Cave> cavesInput, List<string> visitedCavesInput)
+        private int exploreCaves2(string caveId, List<Cave> cavesInput, List<string> visitedCavesInput, ref string specialCave)
         {
             var caves = new List<Cave>(cavesInput);
             var visitedCaves = new List<string>(visitedCavesInput);
@@ -133,22 +146,26 @@ namespace Main
             {
                 var adacentCaveIndex = caves.FindIndex(c => c.Id == cave);
                 if (!visitedCaves.Contains(cave) ||                       // Has not been visited
-                    caves[adacentCaveIndex].IsBigCave)
+                    caves[adacentCaveIndex].IsBigCave ||
+                    caves[adacentCaveIndex].Id == specialCave)
                 {
+                    if (visitedCaves.Contains(cave) && caves[adacentCaveIndex].Id == specialCave)
+                        specialCave = "";
+
                     if (cave == "end")
                     {
                         completedPath++;
-                        Console.WriteLine(string.Join(" - ", visitedCaves));
+                        Globals.allCavePaths.Add(string.Join("-", visitedCaves));
+                        //Console.WriteLine(string.Join(" - ", visitedCaves));
                     }
                     else
                     {
-                        completedPath += exploreCaves2(cave, caves, visitedCaves);
+                        completedPath += exploreCaves2(cave, caves, visitedCaves, ref specialCave);
                     }
                 }
             }
 
             return completedPath;
         }
-
     }
 }
