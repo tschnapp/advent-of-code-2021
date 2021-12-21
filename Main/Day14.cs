@@ -59,6 +59,7 @@ namespace Main
             var input = rawInput.ToList();
             var template = input[0];
             var rules = input.GetRange(2, input.Count() - 2).Select(x => x.Split(" -> ")).ToList();
+            //rules.Add(new string[2] { "N-B","N-B"});
             var results = new List<Tuple<char, long>>();
 
             for (int l = 0; l < 40; l++)
@@ -66,6 +67,11 @@ namespace Main
                 Console.WriteLine(l + " " + template.Count() + " " + DateTime.Now);
 
                 var matchingRules = new List<Tuple<string, int>>();
+
+                //while (template.Contains("NBBNBBNBBBNBBNBB"))
+                //{
+                //    template = template.Replace("NBBNBBNBBBNBBNBB", "N-B");
+                //}
 
                 foreach (string[] rule in rules)
                 {

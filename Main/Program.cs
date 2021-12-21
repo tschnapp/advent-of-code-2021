@@ -14,8 +14,8 @@ namespace Main
             var mostRecentDay = typeof(Program).Assembly.GetTypes()
                 .Where(t => t.IsSubclassOf(typeof(Day)))
                 .OrderByDescending(t => int.Parse(t.Name.Replace("Day", "")))
-                .First();
-                //.First(t => t.Name == "Day01");   // specify day
+                //.First();
+                .First(t => t.Name == "Day16");   // specify day
 
             var day = Activator.CreateInstance(mostRecentDay) as Day;
 
@@ -92,6 +92,9 @@ namespace Main
         }
 
         public static List<List<bool>> hasBeenVisited = new List<List<bool>>();
-        public static List<string> allCavePaths = new List<string>();
+
+        public static List<string> allPaths = new List<string>();
+
+        public static int shortestPath = 9999;
     }
 }

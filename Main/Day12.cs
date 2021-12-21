@@ -88,7 +88,7 @@ namespace Main
         }
 
         [TestCase("Test01", "36")]
-        [TestCase("Final", "103")]
+        //[TestCase("Final", "103")]          // 3665 is too low
         public override string Part02(string[] rawInput)
         {
             var inputData = rawInput.ToList();
@@ -116,23 +116,24 @@ namespace Main
             }
 
             var specialCave = "";
-            exploreCaves2("start", caves, new List<string>(), ref specialCave);
+            exploreCaves2("start", caves, new List<string>(), specialCave);
 
             foreach (Cave cave in caves)
             {
                 if (cave.Id[0] > 96 && cave.Id != "start" && cave.Id != "end")
                 {
                     specialCave = cave.Id;
-                    exploreCaves2("start", caves, new List<string>(), ref specialCave);
+                    Console.WriteLine("SPECIAL CAVE: " + specialCave);
+                    exploreCaves2("start", caves, new List<string>(), specialCave);
                 }
             }
 
-            caveResults = Globals.allCavePaths.Distinct().ToList();
+            caveResults = Globals.allPaths.Distinct().ToList();
 
             return (caveResults.Count()).ToString();
         }
 
-        private int exploreCaves2(string caveId, List<Cave> cavesInput, List<string> visitedCavesInput, ref string specialCave)
+        private int exploreCaves2(string caveId, List<Cave> cavesInput, List<string> visitedCavesInput, string specialCave)
         {
             var caves = new List<Cave>(cavesInput);
             var visitedCaves = new List<string>(visitedCavesInput);
@@ -155,12 +156,13 @@ namespace Main
                     if (cave == "end")
                     {
                         completedPath++;
-                        Globals.allCavePaths.Add(string.Join("-", visitedCaves));
-                        //Console.WriteLine(string.Join(" - ", visitedCaves));
+                        Globals.allPaths.Add(string.Join("-", visitedCaves));
+                        Console.WriteLine(string.Join(",", visitedCaves) + ",end");
+                        break;
                     }
                     else
                     {
-                        completedPath += exploreCaves2(cave, caves, visitedCaves, ref specialCave);
+                        completedPath += exploreCaves2(cave, caves, visitedCaves, specialCave);
                     }
                 }
             }
