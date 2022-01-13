@@ -103,3 +103,96 @@ namespace Main
         }
     }
 }
+
+// My attempt to write my own Dijkstra algorthm was unsuccessful (above) so I implemented Dijkstra.NET in another solution and it worked, code below.
+
+//// PART 1
+
+//var input = System.IO.File.ReadAllLines("C:\\Users\\Brian Schnapp\\source\\repos\\Dijkstra.NET\\src\\Samples\\Dijkstra.Net40\\Day15.txt");
+//var gridSize = Convert.ToUInt16(input.Length);
+//var data = new int[gridSize, gridSize];
+//var graph = new Graph<int, string>();
+
+//for (int y = 0; y < gridSize; y++)                  // set up data
+//    for (int x = 0; x < gridSize; x++)
+//        data[y, x] = input[y][x] - '0';
+
+//for (int y = 0; y < gridSize; y++)                  // create nodes
+//    for (int x = 0; x < gridSize; x++)
+//        graph.AddNode((y * gridSize) + x + 1);
+
+//for (uint y = 0; y < gridSize; y++)                 // map edges
+//{
+//    for (uint x = 0; x < gridSize; x++)
+//    {
+//        if (x < gridSize - 1)                       // right
+//        {
+//            graph.Connect((y * gridSize) + x + 1, (y * gridSize) + x + 2, data[y, x + 1], "");
+//            graph.Connect((y * gridSize) + x + 2, (y * gridSize) + x + 1, data[y, x], "");
+//        }
+
+//        if (y < gridSize - 1)                       // down
+//        {
+//            graph.Connect((y * gridSize) + x + 1, ((y + 1) * gridSize) + x + 1, data[y + 1, x], "");
+//            graph.Connect(((y + 1) * gridSize) + x + 1, (y * gridSize) + x + 1, data[y, x], "");
+//        }
+//    }
+//}
+
+//ShortestPathResult result = graph.Dijkstra(1, gridSize);
+
+//Console.WriteLine(result.IsFounded == false ? "PATH NOT FOUND" : (result.Distance).ToString());
+//Console.ReadKey();      /// Answer: 294
+
+
+
+//// PART 2
+
+//var input = System.IO.File.ReadAllLines("C:\\Users\\Brian Schnapp\\source\\repos\\Dijkstra.NET\\src\\Samples\\Dijkstra.Net40\\Day15.txt");
+//var gridSize = Convert.ToUInt16(input.Length * 5);
+//var data = new int[gridSize, gridSize];
+//var graph = new Graph<int, string>();
+//int[,] incrementor = new int[,] {
+//                { 0, 1, 2, 3, 4 },
+//                { 1, 2, 3, 4, 5 },
+//                { 2, 3, 4, 5, 6 },
+//                { 3, 4, 5, 6, 7 },
+//                { 4, 5, 6, 7, 8 }
+//            };
+
+//for (int my = 0; my < 5; my++)                      // set up data
+//    for (int mx = 0; mx < 5; mx++)
+//        for (int y = 0; y < gridSize; y++)
+//            for (int x = 0; x < gridSize; x++)
+//            {
+//                var value = (input[y % 100][x % 100] - '0') + incrementor[x / 100, y / 100];
+//                value = value > 9 ? value - 9 : value;
+//                data[y, x] = value;
+//            }
+
+//for (int y = 0; y < gridSize; y++)                  // create nodes
+//    for (int x = 0; x < gridSize; x++)
+//        graph.AddNode((y * gridSize) + x + 1);
+
+//for (uint y = 0; y < gridSize; y++)                 // map edges
+//{
+//    for (uint x = 0; x < gridSize; x++)
+//    {
+//        if (x < gridSize - 1)                       // right
+//        {
+//            graph.Connect((y * gridSize) + x + 1, (y * gridSize) + x + 2, data[y, x + 1], "");
+//            graph.Connect((y * gridSize) + x + 2, (y * gridSize) + x + 1, data[y, x], "");
+//        }
+
+//        if (y < gridSize - 1)                       // down
+//        {
+//            graph.Connect((y * gridSize) + x + 1, ((y + 1) * gridSize) + x + 1, data[y + 1, x], "");
+//            graph.Connect(((y + 1) * gridSize) + x + 1, (y * gridSize) + x + 1, data[y, x], "");
+//        }
+//    }
+//}
+
+//ShortestPathResult result = graph.Dijkstra(1, 250000);
+
+//Console.WriteLine(result.IsFounded == false ? "PATH ON FOUND" : (result.Distance).ToString());
+//Console.ReadKey();      /// Answer: 2806
