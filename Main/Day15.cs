@@ -84,46 +84,6 @@ namespace Main
 
         //[TestCase("Test01", "40")]
         //[TestCase("Final", "?")]
-        //public override string Part01(string[] rawInput)      // Original
-        //{
-        //    var input = rawInput.ToList();
-        //    var caveXMax = input[0].Count();
-        //    var caveYMax = input.Count();
-        //    var cave = new int[caveXMax, caveYMax];
-
-        //    for (int y = 0; y < input.Count(); y++)
-        //        for (int x = 0; x < input.Count(); x++)
-        //            cave[x, y] = (int)Char.GetNumericValue(input[y][x]);
-
-        //    paths(new Point(0, 0), cave, 0);
-
-        //    var shortestPath = Globals.shortestPath;
-
-        //    return (shortestPath - 1).ToString();
-        //}
-
-
-        //private void paths(Point caveLoc, int[,] cave, int count)
-        //{
-        //    var caveXMax = cave.GetLength(0) - 1;
-        //    var caveYMax = cave.GetLength(1) - 1;
-        //    count += cave[caveLoc.X, caveLoc.Y];
-
-        //    if (caveLoc.X == caveXMax && caveLoc.Y == caveYMax)
-        //    {
-        //        Globals.shortestPath = Globals.shortestPath < count ? Globals.shortestPath : count;
-        //        return;
-        //    }
-
-        //    if (caveLoc.X < caveXMax)
-        //        paths(new Point(caveLoc.X + 1, caveLoc.Y), cave, count);
-
-        //    if (caveLoc.Y < caveYMax)
-        //        paths(new Point(caveLoc.X, caveLoc.Y + 1), cave, count);
-        //}
-
-        //[TestCase("Test01", "40")]
-        //[TestCase("Final", "?")]
         public override string Part02(string[] rawInput)
         {
             var input = rawInput.ToList();
