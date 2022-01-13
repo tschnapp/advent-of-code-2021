@@ -178,13 +178,13 @@ namespace Main
 //{
 //    for (uint x = 0; x < gridSize; x++)
 //    {
-//        if (x < gridSize - 1)                       // right
+//        if (x < gridSize - 1)                       // right/left
 //        {
 //            graph.Connect((y * gridSize) + x + 1, (y * gridSize) + x + 2, data[y, x + 1], "");
 //            graph.Connect((y * gridSize) + x + 2, (y * gridSize) + x + 1, data[y, x], "");
 //        }
 
-//        if (y < gridSize - 1)                       // down
+//        if (y < gridSize - 1)                       // down/up
 //        {
 //            graph.Connect((y * gridSize) + x + 1, ((y + 1) * gridSize) + x + 1, data[y + 1, x], "");
 //            graph.Connect(((y + 1) * gridSize) + x + 1, (y * gridSize) + x + 1, data[y, x], "");
